@@ -30,25 +30,24 @@ class PythonFlow:
 		# total flow which can be retrieved
 		self.total_flow = 0
 		#file name
-		self.file_name = "D:/Copy/Coding/GitHub/PythonFlow/graph.txt"
-		
-		
-		"""  -- testing --
-		n = 20
-		graph = []
-		for x in range(n):
-			row = []
-			for y in range(n):
-				if y<=x:
-					row.append(0)
-				else:
-					row.append(y)
-			graph.append(row)
-					
-		self.graph = graph
-		"""
+		self.file_name = "D:/Copy/Coding/GitHub/PythonFlow/bipartite.txt"
 		
 		self.load_file()
+		# self.print_graph(self.graph)
+		row = [0] # source
+		for x in range(len(self.graph)):
+			self.graph[x].insert(0, 0)
+			if x < len(self.graph)/2:
+				self.graph[x].append(0)
+				row.append(1)
+			else:
+				self.graph[x].append(1)
+				row.append(0)
+		row.append(0) # sink
+		self.graph.insert(0, row)
+		self.graph.append([0 for x in range(len(self.graph)+1)])
+		# self.print_graph(self.graph)
+		
 		self.init_flow()
 		self.update_residual()
 	
